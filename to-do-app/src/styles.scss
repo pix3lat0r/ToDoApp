@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+// Set IBM Plex Mono as default for the whole app
+body,
+html {
+    font-family: 'IBM Plex Mono', monospace !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    /* horizontal center */
+    align-items: center;
+    /* vertical center */
+    min-height: 100vh;
+    /* full viewport height */
+    text-align: center;
+    /* optional, center text inside */
+    flex-direction: column;
+    /* optional, stack items vertically */
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}

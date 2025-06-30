@@ -1,0 +1,29 @@
+<h1>to-do list</h1>
+
+<!-- Filter Buttons -->
+<div class="button-list">
+    <button (click)="setFilter('all')" [ngClass]="{ 'active-filter': filter === 'all' }">ALL</button> |
+    <button (click)="setFilter('active')" [ngClass]="{ 'active-filter': filter === 'active'}">ACTIVE</button> |
+    <button (click)="setFilter('completed')" [ngClass]="{ 'active-filter': filter === 'completed' }">COMPLETED</button>
+</div>
+
+<!-- To-Do List -->
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let task of filteredTasks()">
+                <td>{{ task.title }}</td>
+                <td class="checkbox">
+                    <input type="checkbox" [checked]="task.completed" (change)="toggleComplete(task.id)"
+                        [attr.aria-label]="'Mark ' + task.title + (task.completed ? ' as incomplete' : ' as complete')" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

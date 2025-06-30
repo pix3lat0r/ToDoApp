@@ -1,0 +1,39 @@
+/* table styling */
+table {
+    width: auto;
+    border-collapse: collapse;
+    // margin: 1rem 5rem;
+    margin: auto;
+
+    th,
+    td {
+        padding: 0.5rem 1.5rem;
+        border-bottom: 1px solid #ccc;
+        text-align: left;
+    }
+}
+
+.checkbox {
+    padding-left: 2.75rem !important;
+}
+
+.active-filter {
+    background-color: #ccc;
+}
+
+button {
+    font-family: 'IBM Plex Mono', monospace;
+    cursor: pointer;
+    padding: 0.3rem 0.8rem;
+    border: none;
+    background-color: white;
+    transition: background-color 0.2s ease;
+    
+        &:hover {
+            background-color: #ccc;
+        }
+}
+
+.button-list {
+    margin-bottom: 1rem;
+}

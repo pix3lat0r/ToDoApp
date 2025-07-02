@@ -1,8 +1,6 @@
-/* table styling */
 table {
     width: auto;
     border-collapse: collapse;
-    // margin: 1rem 5rem;
     margin: auto;
 
     th,
@@ -11,6 +9,14 @@ table {
         border-bottom: 1px solid #ccc;
         text-align: left;
     }
+}
+
+button {
+    font-family: 'IBM Plex Mono', monospace;
+    cursor: pointer;
+    padding: 0.3rem 0.8rem;
+    border: none;
+    background-color: white;
 }
 
 .checkbox {
@@ -36,9 +42,6 @@ table {
     max-width: 500px;
     /* limit text width */
     margin-bottom: 1rem;
-    /* space below text */
-    // word-wrap: break-word;
-    /* ensures long words break if needed */
 
 }
 
@@ -52,23 +55,11 @@ table {
 
 .delete-cell {
     padding-left: 1rem;
-    /* adjust this value to move button right */
     text-align: left;
-    /* align content to left inside cell */
-    /* remove flex to avoid border issues */
 }
 
 .delete-cell button {
     margin-left: 0.5rem;
-    /* nudge the button itself */
-}
-
-button {
-    font-family: 'IBM Plex Mono', monospace;
-    cursor: pointer;
-    padding: 0.3rem 0.8rem;
-    border: none;
-    background-color: white;
 }
 
 .active-link {

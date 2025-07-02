@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+
 // Set IBM Plex Mono as default for the whole app
 body,
 html {
@@ -25,4 +26,8 @@ body {
 .table-wrapper {
     width: 100%;
     overflow-x: auto;
+}
+
+.gray-text {
+    color: #666;
 }

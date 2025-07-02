@@ -2,9 +2,19 @@
 
 <!-- Filter Buttons -->
 <div class="button-list">
-    <button (click)="setFilter('all')" [ngClass]="{ 'active-filter': filter === 'all' }">ALL</button> |
-    <button (click)="setFilter('active')" [ngClass]="{ 'active-filter': filter === 'active'}">ACTIVE</button> |
-    <button (click)="setFilter('completed')" [ngClass]="{ 'active-filter': filter === 'completed' }">COMPLETED</button>
+    <button class="active-link" (click)="setFilter('all')"
+        [ngClass]="{ 'active-filter': filter === 'all' }">ALL</button> |
+    <button class="active-link" (click)="setFilter('active')"
+        [ngClass]="{ 'active-filter': filter === 'active'}">ACTIVE</button> |
+    <button class="active-link" (click)="setFilter('completed')"
+        [ngClass]="{ 'active-filter': filter === 'completed' }">COMPLETED</button>
+</div>
+
+<!-- Information -->
+<div class="table-text">
+    <p class="gray-text">
+        ⓘ Create your own to-do list.<br />Add new items below and mark them complete when done.
+    </p>
 </div>
 
 <!-- To-Do List -->
@@ -14,6 +24,7 @@
             <tr>
                 <th>Task</th>
                 <th>Status</th>
+                <th>Remove</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +34,27 @@
                     <input type="checkbox" [checked]="task.completed" (change)="toggleComplete(task.id)"
                         [attr.aria-label]="'Mark ' + task.title + (task.completed ? ' as incomplete' : ' as complete')" />
                 </td>
+                <td class="delete-cell"><button class="gray-text" (click)="deleteTask(task.id)">x</button></td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr *ngIf="!showAddTask">
+                <td colspan="4" class="no-left-padding">
+                    <button class="gray-text align-add-button" (click)="handleAddTask()">+ Add New Task</button>
+                </td>
+            </tr>
+            <tr *ngIf="showAddTask">
+                <td><input class="auto-width-input" [(ngModel)]="newTask.title" [size]="newTask.title.length || 8"
+                        (blur)="addTask(newTask)" (keydown.enter)="addTask(newTask)"></td>
+                <td class="checkbox">
+                    <input type="checkbox" [checked]="newTask.completed" (change)="toggleComplete(newTask.id)"
+                        [disabled]="true"
+                        [attr.aria-label]="'Mark ' + newTask.title + (newTask.completed ? ' as incomplete' : ' as complete')" />
+                </td>
+                <td class="delete-cell">
+                    <button class="gray-text" (click)="cancelAddTask()">x</button>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>

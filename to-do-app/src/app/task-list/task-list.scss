@@ -21,17 +21,62 @@ table {
     background-color: #ccc;
 }
 
+.auto-width-input {
+    min-width: 5px;
+    max-width: 500px;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 2px 4px;
+}
+
+.table-text {
+    font-size: small;
+    max-width: 500px;
+    /* limit text width */
+    margin-bottom: 1rem;
+    /* space below text */
+    // word-wrap: break-word;
+    /* ensures long words break if needed */
+
+}
+
+.align-add-button {
+    margin-left: calc(var(--desired-left-offset, -0.75rem));
+}
+
+.no-left-padding {
+    padding-left: 0;
+}
+
+.delete-cell {
+    padding-left: 1rem;
+    /* adjust this value to move button right */
+    text-align: left;
+    /* align content to left inside cell */
+    /* remove flex to avoid border issues */
+}
+
+.delete-cell button {
+    margin-left: 0.5rem;
+    /* nudge the button itself */
+}
+
 button {
     font-family: 'IBM Plex Mono', monospace;
     cursor: pointer;
     padding: 0.3rem 0.8rem;
     border: none;
     background-color: white;
+}
+
+.active-link {
     transition: background-color 0.2s ease;
-    
-        &:hover {
-            background-color: #ccc;
-        }
+
+    &:hover {
+        background-color: #ccc;
+    }
 }
 
 .button-list {

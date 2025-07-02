@@ -29,6 +29,42 @@ export class TaskList {
   // filter to get all, active, and completed tasks
   filter: 'all' | 'active' | 'completed' = 'all';
 
+  // new task to add
+  newTask: Task = {id: 0, title: '', completed: false};
+  // condition to show add new task row
+  showAddTask: boolean = false;
+
+  handleAddTask() {
+    this.showAddTask = true;
+  }
+
+  addTask(task: Task): void {
+    if (task.title.trim() !== '') {
+      const newTask: Task = {
+        id: this.tasks.length + 1,
+        title: task.title.trim(),
+        completed: false
+      };
+      
+      // push newly added tasks to end of list
+      // this.tasks.push(newTask);
+
+      // push newly added tasks to top of list
+      this.tasks.unshift(newTask);
+      this.newTask.title = '';
+    }
+    this.showAddTask = false;
+  }
+
+  deleteTask(id: number): void {
+    this.tasks = this.tasks.filter(task => task.id !== id);
+  }
+
+  cancelAddTask(): void {
+    this.newTask.title = '';
+    this.showAddTask = false;
+  }
+
   toggleComplete(id: number): void {
     this.tasks = this.tasks.map(t => t.id === id ? {...t, completed: !t.completed}: t);
   }

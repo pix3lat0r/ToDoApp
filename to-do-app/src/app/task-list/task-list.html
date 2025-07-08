@@ -29,7 +29,17 @@
         </thead>
         <tbody>
             <tr *ngFor="let task of filteredTasks()">
-                <td>{{ task.title }}</td>
+                <td>
+                    <ng-container *ngIf="task.id && editingField[task.id]?.['title']; else viewTask">
+                        <input class="auto-width-input" [(ngModel)]="task.title" (blur)="stopEditing(task.id!, 'title', task)"
+                            (keydown.enter)="stopEditing(task.id!, 'title', task)" autofocus />
+                    </ng-container>
+                    <ng-template #viewTask>
+                        <span tabindex="0" *ngIf="task.id" (click)="startEditing(task.id, 'title')"
+                            (keydown.enter)="startEditing(task.id, 'title')" [class.empty]="!task.title">{{
+                            task.title }}</span>
+                    </ng-template>
+                </td>
                 <td class="checkbox">
                     <input type="checkbox" [checked]="task.completed" (change)="toggleComplete(task.id)"
                         [attr.aria-label]="'Mark ' + task.title + (task.completed ? ' as incomplete' : ' as complete')" />

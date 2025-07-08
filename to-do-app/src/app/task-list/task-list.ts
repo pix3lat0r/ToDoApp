@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-// make an interface for task model
+// Make an interface for task model
 export interface Task {
-  id: number; // unique id for each task
-  title: string; // task name
-  completed: boolean; // we'll use this to mark checkboxes
+  id: number; // Unique ID for each task
+  title: string; // Task name
+  completed: boolean; // We'll use this to mark checkboxes
 }
 
 @Component({
@@ -18,7 +18,7 @@ export interface Task {
 
 export class TaskList {
 
-  // hard-coded array of tasks
+  // Hard-coded array of tasks
   tasks: Task[] = [
     { id: 1, title: "Get groceries", completed: false },
     { id: 2, title: "Go to the gym", completed: false },
@@ -30,25 +30,28 @@ export class TaskList {
   // Current filter option for displaying tasks: 'all', 'active', or 'completed'
   filter: 'all' | 'active' | 'completed' = 'all';
 
-  // condition to add new task row
+  // Condition to add new task row
   showAddTask: boolean = false;
 
-  // empty task row for adding new task
+  // Empty task row for adding new task
   newTask: Task = { id: 0, title: '', completed: false };
+
+  // Empty editing field for editing a task
+  editingField: { [id: number]: { [key: string]: boolean } } = {};
 
   /**
    * Shows the input row to add a new task by setting showAddTask to true
    */
   handleAddTask() {
-    // set showAddTask to true so that user can enter a new task
+    // Set showAddTask to true so that user can enter a new task
     this.showAddTask = true;
   }
 
   // Cancels adding a new task
   cancelAddTask() {
-    // clear input so that newTask row will be blank
+    // Clear input so that newTask row will be blank
     this.newTask.title = '';
-    // set showAddTask to false so that we can see add new task button
+    // Set showAddTask to false so that we can see add new task button
     this.showAddTask = false;
   }
 
@@ -57,43 +60,71 @@ export class TaskList {
    * @param task is the new task to be added to list
    */
   addTask(task: Task): void {
-    // if task title is not empty, add new task to list
+    // If task title is not empty, add new task to list
     if (task.title.trim() !== '') {
-      // make a new task object
+      // Make a new task object
       const newTask: Task = {
         id: this.tasks.length + 1,
         title: task.title,
-        completed: false // default for newly added task
+        completed: false // Default for newly added task
       };
 
-      // add new task to bottom of list
+      // Add new task to bottom of list
       // this.tasks.push(newTask);
 
-      // add new task to top of list
+      // Add new task to top of list
       this.tasks.unshift(newTask);
-      // clear input so that newTask row will be blank
+      // Clear input so that newTask row will be blank
       this.newTask.title = '';
-      // set showAddTask to false so that we can see add new task button
+      // Set showAddTask to false so that we can see add new task button
       this.showAddTask = false;
     }
   }
 
   /**
+   * Enables editing mode for a specific task
+   * @param id is the ID of the task being edited
+   * @param field is a valid key (property name, i.e. "title") of Task
+   */
+  startEditing(id: number, field: keyof Task) {
+    // Mark the field as true (editing)
+    this.editingField[id] = { ...this.editingField[id], [field]: true };
+  }
+
+  /**
+   * 
+   * Disables editing mode and updates the edited task in Tasks
+   * @param id is the ID of the task being edited
+   * @param field is a valid key (property name, i.e. "title") of Task
+   * @param task is the task to be updated
+   */
+  stopEditing(id: number, field: keyof Task, task: Task) {
+    // Mark the field as false (stop editing)
+    this.editingField[id][field] = false;
+    // If task has a valid ID, update task list with new value
+    if (task.id) {
+      this.tasks = this.tasks.map(t => t.id == id ? { ...t, [field]: task[field] } : t);
+    } else {
+      console.log('Unable to update: missing row ID');
+    }
+  }
+
+  /**
    * Deletes a task
-   * @param id is the id of the task to be deleted
+   * @param id is the ID of the task to be deleted
    */
   deleteTask(id: number): void {
-    // Remove the task with the given id by filtering it out of the tasks list
+    // Remove the task with the given ID by filtering it out of the tasks list
     this.tasks = this.tasks.filter(task => task.id !== id);
   }
 
   /**
    * Completes a task (updates completed)
-   * @param id is the id of the task to be completed
+   * @param id is the ID of the task to be completed
    */
   toggleComplete(id: number): void {
-    // Find the matching id in the tasks list:
-    // if the id matches, create a new task object with 'completed' flipped;
+    // Find the matching ID in the tasks list:
+    // if the ID matches, create a new task object with 'completed' flipped;
     // otherwise, return the task unchanged.
     this.tasks = this.tasks.map(task => task.id == id ? { ...task, completed: !task.completed } : task);
   }
